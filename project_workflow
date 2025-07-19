@@ -4,20 +4,20 @@ Building Pipeline:
 3> Add data, models, reports directories to .gitignore file
 4> Now git add, commit, push
 
-Setting up dcv pipeline (without params)
+Setting up dvc pipeline (without params)
 5> Create dvc.yaml file and add stages to it.
 6> dvc init then do "dvc repro" to test the pipeline automation. (check dvc dag)
 7> Now git add, commit, push
 
-Setting up dcv pipeline (with params)
+Setting up dvc pipeline (with params)
 8> add params.yaml file
-9> Add the params setup in every code where parameter is used.
+9> Add the params setup in every code where parameter is used.update yaml file also
 10> Do "dvc repro" again to test the pipeline along with the params
 11> Now git add, commit, push
 
 Expermients with DVC:
 12> pip install dvclive
-13> Add the dvclive code block (mentioned below)
+13> Add the dvclive code block in evaluation code because we want to track the metrics.
 14> Do "dvc exp run", it will create a new dvc.yaml(if already not there) and dvclive directory (each run will be considered as an experiment by DVC)
 15> Do "dvc exp show" on terminal to see the experiments or use extension on VSCode (install dvc extension)
 16> Do "dvc exp remove {exp-name}" to remove exp (optional) | "dvc exp apply {exp-name}" to reproduce prev exp
@@ -43,3 +43,15 @@ overall flow:
     Iske baad hum params.yaml file me parameters define kar dete hain (jaise learning rate, batch size), taaki future me koi hyperparameter change karna ho to sirf ek jagah se ho jaye.
     
     Finally, hum dvclive ka use karte hain jo har experiment/run me model ki metrics (accuracy, loss, etc.) ko track karta hai, taaki hum compare kar sakein ki kaunsa version ya parameter setting best result de rahi hai. Ye changes automatically DVC ke sath store hote hain, aur visual comparison bhi possible hota hai.
+
+dvc repro or exp run mai diff:
+    dvc exp run ka use tab hota hai jab aap experiment kar rahe ho — jaise hyperparameter tuning, model testing, 
+    etc. Ye ek temporary run karta hai jiska result dvc.lock me save nahi hota, balki DVC usse experiments ke form
+    me track karta hai (jaise branches jaisa system), jise baad me compare, visualize ya promote kiya ja sakta hai.
+
+    Wahin dvc repro ek finalized pipeline run karta hai, aur agar koi changes mile (code, data, config), to dvc.lock
+    update karta hai — yani wo official pipeline output hai.
+    
+    Short me:
+    dvc repro = production/final pipeline ke liye
+    dvc exp run = testing/experimentation ke liye without touching dvc.lock directly.
