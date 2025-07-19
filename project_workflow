@@ -24,3 +24,22 @@ Expermients with DVC:
 17> Change params, re-run code (produce new experiments)
 18> Now git add, commit, push
 
+
+
+
+dvc.yaml:
+    dvc.yaml DVC pipeline ka blueprint hota hai jisme bataya jaata hai ki kaunse steps run honge, unka command kya hai, aur kaunsi files input/output hain, taaki DVC pipeline ko automate aur reproduce kar sake.
+
+dvc repro:
+    dvc repro chalate hi DVC dvc.yaml ko padhta hai, ek dependency graph banata hai, aur dvc.lock ke hashes se compare karke check karta hai kya change hua hai. Agar koi input ya command badli ho ya output missing ho, to wo stage dobara run hoti hai aur dvc.lock update ho jaata hai.\
+
+dvc live:
+    DVCLive ek tool hai jo model training ke dauraan loss, accuracy jaise metrics ko automatically save karta hai, taaki DVC unhe track, compare aur visualize kar sake — bina kisi extra setup ke.
+
+
+overall flow:
+    Sabse pehle hum apne ML pipeline ke alag-alag components (jaise data preprocessing, training, evaluation) define karte hain. Fir dvc.yaml file ka use karke un steps ko ek sequence me connect kar dete hain, taaki hume sab kuch alag-alag run na karna pade — sirf ek command (dvc repro) se poora pipeline chale.
+    
+    Iske baad hum params.yaml file me parameters define kar dete hain (jaise learning rate, batch size), taaki future me koi hyperparameter change karna ho to sirf ek jagah se ho jaye.
+    
+    Finally, hum dvclive ka use karte hain jo har experiment/run me model ki metrics (accuracy, loss, etc.) ko track karta hai, taaki hum compare kar sakein ki kaunsa version ya parameter setting best result de rahi hai. Ye changes automatically DVC ke sath store hote hain, aur visual comparison bhi possible hota hai.
