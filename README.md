@@ -12,4 +12,4 @@ Build a simple machine learning pipeline to classify emails as spam or not spam,
 - ✅ DVC (for tracking data, models, and experiments)
 - ✅ Git (for version control)
 - ✅ params.yaml (to manage configurations)
-- 
+
